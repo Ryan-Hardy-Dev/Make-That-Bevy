@@ -2,15 +2,16 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import cocktailImg from'../img/cocktail.jpg';
 import { Button } from "react-bootstrap";
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 const Dashboard = (props) => {
     return(
         <Container>
             <div className="row">
                 <div className="mt-5 col-md-6 text-center">
-                    <h4>Developed By: <b style={{ fontFamily: "Permanent Marker"}}>Ryan Hardy</b></h4>
+                    <h4>Developed By: <b style={{fontFamily: "Permanent Marker"}}>Ryan Hardy</b></h4>
                     <h4 className="mt-3">
-                        Portfolio: <b style={{ fontFamily: "Permanent Marker"}}>
+                        Portfolio: <b style={{fontFamily: "Permanent Marker"}}>
                             <Button className="btn btn-info">
                                 <a href="https://www.rh-web-design.co.uk/" target="_blank" className="text-light">
                                     Porfolio
@@ -37,9 +38,9 @@ const Dashboard = (props) => {
                         <li className="list-group-item">The correct glass to serve in</li>
                     </ul>
                     <Button className="btn btn-info mt-3">
-                        <a href="/cocktails" className="text-light" style={{ fontFamily: "Permanent Marker"}}>
+                        <Link to={'/cocktails'} className="text-light" style={{fontFamily: "Permanent Marker"}}>
                             View Cocktails🍸
-                        </a>
+                        </Link>
                     </Button>
                 </div>
                 <div className="mt-5 col-md-6">

@@ -1,5 +1,6 @@
 {
   "name": "make-that-bevy",
+  "homepage": "https://www.rh-web-design.co.uk/makeThatBevy",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

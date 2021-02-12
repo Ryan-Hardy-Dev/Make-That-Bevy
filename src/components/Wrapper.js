@@ -9,7 +9,7 @@ import {
 
 function Wrapper() {
     return(
-        <Router>
+        <Router basename={'/makeThatBevy'}>
             <Navbar style={{backgroundColor: "pink"}} variant="dark">
                 <Link to={'/'}>
                     <Navbar.Brand className="text-dark" style={{ fontFamily: "Permanent Marker"}}>
