@@ -4,10 +4,7 @@ import Dashboard from "../redux/containers/Dashboard/Dashboard";
 import Cocktails from "../redux/containers/Cocktails/Cocktails";
 import {
     Navbar,
-    Nav,
-    Form,
-    FormControl,
-    Button
+    Nav
 } from "react-bootstrap";
 
 function Wrapper() {

@@ -3,7 +3,8 @@ import * as actions from "../../actions/Cocktails/Cocktails";
 const initialState = {
     isPending: null,
     isPendingDetail: null,
-    isPendingFilter: null
+    isPendingFilter: null,
+    isPendingSearch: null
 };
 
 export function cocktails(state = initialState, action) {
@@ -63,6 +64,31 @@ export function cocktailFilter(state = initialState, action) {
                 isPendingFilter: false
             };
             return newState
+        };
+        default:
+            return state;
+    }
+};
+
+export function cocktailSearch(state = initialState, action) {
+    switch (action.type) {
+        case actions.REQUEST_COCKTAIL_SEARCH: {
+            const newState = {
+                isPendingSearch: true
+            };
+            return newState;
+        };
+        case actions.RECEIVE_COCKTAIL_SEARCH: {
+            const cocktailSearch = action.payload;
+            if (cocktailSearch.drinks === null) {
+                return state
+            } else {
+                const newState = {
+                    cocktailSearch,
+                    isPendingSearch: false
+                };
+                return newState
+            }
         };
         default:
             return state;

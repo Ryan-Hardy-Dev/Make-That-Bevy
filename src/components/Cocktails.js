@@ -3,10 +3,13 @@ import {
     Card,
     Container,
     Button,
-    Row
+    Row,
+    Form,
+    InputGroup
 } from "react-bootstrap";
 import DetailsModal from "./DetailsModal";
 import BackToTop from "react-back-to-top-button";
+import SearchIcon from '@material-ui/icons/Search';
 
 const Cocktails = (props) => {
     const {
@@ -15,9 +18,10 @@ const Cocktails = (props) => {
         isPending,
         loadCocktailDetail,
         cocktailDetail,
-        isPendingDetail,
         loadCocktailFilter,
-        cocktailFilter
+        cocktailFilter,
+        loadCocktailSearch,
+        cocktailSearch
     } = props;
 
     useEffect(() => {
@@ -48,10 +52,21 @@ const Cocktails = (props) => {
         loadCocktailFilter(filter)
     }, [filter]);
 
+    let textInput = React.createRef();
+    const [search, setSearch] = useState(null);
+    const handleSearchClick = () => {
+        setSearch(textInput.current.value)
+        setFilter(null)
+    }
+
+    useEffect(() => {
+        loadCocktailSearch(search)
+    }, [search]);
+
     const drinksList = cocktail ? 
         cocktail.drinks.map(cocktail => {
             return (
-                <Card className="col-md-4 col-sm-6 min-h-25 mt-2" key={cocktail.idDrink}>
+                <Card className="col-md-4 col-sm-6 min-h-25 mt-2 border-info" key={cocktail.idDrink}>
                     <Card.Img variant="top" className="w-50 mx-auto mt-2" src={cocktail.strDrinkThumb} />
                     <Card.Body>
                         <Card.Title className="text-center">{cocktail.strDrink}</Card.Title>
@@ -64,7 +79,7 @@ const Cocktails = (props) => {
                             className="w-100 btn-outline-dark"
                             style={{backgroundColor: "pink", fontFamily: "Permanent Marker"}}
                         >
-                            Ingredients
+                            View Ingredients
                         </Button>
                     </Card.Footer>
                 </Card>
@@ -75,7 +90,7 @@ const Cocktails = (props) => {
     const drinksListFiltered = cocktailFilter ? 
         cocktailFilter.drinks.map(cocktail => {
             return (
-                <Card className="col-md-4 col-sm-6 min-h-25 mt-2" key={cocktail.idDrink}>
+                <Card className="col-md-4 col-sm-6 min-h-25 mt-2 border-info" key={cocktail.idDrink}>
                     <Card.Img variant="top" className="w-50 mx-auto mt-2" src={cocktail.strDrinkThumb} />
                     <Card.Body>
                         <Card.Title className="text-center">{cocktail.strDrink}</Card.Title>
@@ -88,7 +103,31 @@ const Cocktails = (props) => {
                             className="w-100 btn-outline-dark"
                             style={{backgroundColor: "pink", fontFamily: "Permanent Marker"}}
                         >
-                            Ingredients
+                            View Ingredients
+                        </Button>
+                    </Card.Footer>
+                </Card>
+            )
+        })
+    : null;
+
+    const drinksListSearched = cocktailSearch ? 
+        cocktailSearch.drinks.map(cocktail => {
+            return (
+                <Card className="col-md-4 col-sm-6 min-h-25 mt-2 border-info" key={cocktail.idDrink}>
+                    <Card.Img variant="top" className="w-50 mx-auto mt-2" src={cocktail.strDrinkThumb} />
+                    <Card.Body>
+                        <Card.Title className="text-center">{cocktail.strDrink}</Card.Title>
+                    </Card.Body>
+                    <Card.Footer className="text-center bg-transparent">
+                        <Button 
+                            variant="primary" 
+                            onClick={() => buttonHandler(cocktail)}
+                            key={cocktail.idDrink}
+                            className="w-100 btn-outline-dark"
+                            style={{backgroundColor: "pink", fontFamily: "Permanent Marker"}}
+                        >
+                            View Ingredients
                         </Button>
                     </Card.Footer>
                 </Card>
@@ -118,39 +157,72 @@ const Cocktails = (props) => {
             </BackToTop>
             <Container>
                 <h1 className="text-center" style={{ fontFamily: "Permanent Marker"}}>Cocktails</h1>
-                <select 
-                    className="btn"
-                    name="filter" 
-                    onChange={filterHandler}
-                    style={{backgroundColor: "Coral", fontFamily: "Permanent Marker"}}
-                >
-                    <option selected disabled>Filter</option>
-                    <option value="vodka">Vodka</option>
-                    <option value="gin">Gin</option>
-                    <option value="rum">Rum</option>
-                    <option value="whiskey">Whiskey</option>
-                    <option value="tequila">Tequila</option>
-                    <option value="brandy">Brandy</option>
-                    <option value="champagne">Champagne</option>
-                </select>
-                {filter ?
-                    <Button 
-                        className="btn btn-danger ml-1" 
-                        onClick={() => setFilter(null)} 
-                        style={{ fontFamily: "Permanent Marker"}}
+                <Row className="btn-block ml-1">
+                    <select 
+                        className="btn h-25"
+                        name="filter" 
+                        onChange={filterHandler}
+                        style={{backgroundColor: "Pink", fontFamily: "Permanent Marker"}}
                     >
-                        Clear Filter
-                    </Button>
-                : null}
+                        <option selected disabled>Filter</option>
+                        <option value="vodka">Vodka</option>
+                        <option value="gin">Gin</option>
+                        <option value="rum">Rum</option>
+                        <option value="whiskey">Whiskey</option>
+                        <option value="tequila">Tequila</option>
+                        <option value="brandy">Brandy</option>
+                        <option value="champagne">Champagne</option>
+                    </select>
+                    {filter ?
+                        <Button 
+                            className="btn btn-danger h-25 ml-2" 
+                            onClick={() => setFilter(null)} 
+                            style={{ fontFamily: "Permanent Marker"}}
+                        >
+                            Clear Filter
+                        </Button>
+                    : null}
+                </Row>
+                <Row className="btn-block mx-auto">
+                    <Form.Group className="mt-1">
+                        <InputGroup>
+                            <InputGroup.Prepend>
+                                <Button className="btn btn-info" onClick={() => {handleSearchClick()}}>
+                                    <SearchIcon/>
+                                </Button>
+                            </InputGroup.Prepend>
+                            <Form.Control
+                                type="text"
+                                placeholder="Search"
+                                style={{fontFamily: "Permanent Marker"}}
+                                className="border-info"
+                                ref={textInput}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+                </Row>
                 <Row>
-                    {filter ? drinksListFiltered : drinksList}
+                    {(() => {
+                        if (filter) {
+                            return (
+                                drinksListFiltered
+                            )
+                        } else if (search) {
+                            return (
+                                drinksListSearched
+                            )
+                        } else {
+                            return (
+                                drinksList
+                            )
+                        }
+                    })()}
                     <DetailsModal
                         show={show}
                         handleClose={handleClose}
                         selectedCocktail={selectedCocktail}
                         loadCocktailDetail={loadCocktailDetail}
                         cocktailDetail={cocktailDetail}
-                        isPendingDetail={isPendingDetail}
                     />
                 </Row>
             </Container>

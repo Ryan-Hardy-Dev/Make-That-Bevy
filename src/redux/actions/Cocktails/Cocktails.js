@@ -19,6 +19,12 @@ const requestCocktailFilter = createAction(REQUEST_COCKTAIL_FILTER);
 export const RECEIVE_COCKTAIL_FILTER = 'RECEIVE_COCKTAIL_FILTER';
 const receiveCocktailFilter = createAction(RECEIVE_COCKTAIL_FILTER);
 
+export const REQUEST_COCKTAIL_SEARCH = 'REQUEST_COCKTAIL_SEARCH';
+const requestCocktailSearch = createAction(REQUEST_COCKTAIL_SEARCH);
+
+export const RECEIVE_COCKTAIL_SEARCH = 'RECEIVE_COCKTAIL_SEARCH';
+const receiveCocktailSearch = createAction(RECEIVE_COCKTAIL_SEARCH);
+
 
 export function loadCocktailCategory(category) {
     return (dispatch) => {
@@ -50,5 +56,16 @@ export function loadCocktailFilter(filter) {
                 return dispatch(receiveCocktailFilter(payload));
             });
             dispatch(requestCocktailFilter(filter));
+    }
+}
+
+export function loadCocktailSearch(search) {
+    return (dispatch) => {
+        api
+            .searchCocktail(search)
+            .then(payload => {
+                return dispatch(receiveCocktailSearch(payload));
+            });
+            dispatch(requestCocktailSearch(search));
     }
 }

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { 
     loadCocktailCategory,
     loadCocktailDetail,
-    loadCocktailFilter 
+    loadCocktailFilter,
+    loadCocktailSearch
 } from "../../actions/Cocktails/Cocktails";
 
 import Cocktails from '../../../components/Cocktails';
@@ -13,12 +14,14 @@ export default connect(
         return {
             ...state.cocktails,
             ...state.cocktailDetail,
-            ...state.cocktailFilter
+            ...state.cocktailFilter,
+            ...state.cocktailSearch
         };
     },
     {
         loadCocktailCategory,
         loadCocktailDetail,
-        loadCocktailFilter
+        loadCocktailFilter,
+        loadCocktailSearch
     }
 )(Cocktails);

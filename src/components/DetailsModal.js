@@ -102,7 +102,7 @@ const DetailsModal = (props) => {
                         <h1 className="mt-2">Enjoy! 🍹</h1>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="danger" onClick={handleClose}>
+                        <Button variant="danger" onClick={handleClose} style={{ fontFamily: "Permanent Marker"}}>
                             Close
                         </Button>
                     </Modal.Footer>

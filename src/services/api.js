@@ -20,6 +20,12 @@ const api = {
         const response = await fetch(url);
         const jsonResponse = await response.json();
         return jsonResponse;
+    },
+    searchCocktail: async (search) => {
+        const url = `${HOST}/search.php?s=${search}`;
+        const response = await fetch(url);
+        const jsonResponse = await response.json();
+        return jsonResponse;
     }
 }
 

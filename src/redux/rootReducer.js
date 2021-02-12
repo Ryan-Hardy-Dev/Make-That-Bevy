@@ -3,14 +3,16 @@ import dashboard from './reducers/Dashboard/Dashboard';
 import { 
     cocktails,
     cocktailDetail,
-    cocktailFilter
+    cocktailFilter,
+    cocktailSearch
 } from './reducers/Cocktails/Cocktails';
 
 const rootReducer = combineReducers({
     dashboard,
     cocktails,
     cocktailDetail,
-    cocktailFilter
+    cocktailFilter,
+    cocktailSearch
 });
 
 export default rootReducer;
